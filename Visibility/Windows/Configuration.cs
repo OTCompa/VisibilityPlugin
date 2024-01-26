@@ -247,6 +247,11 @@ public class Configuration: Window
 		{
 			ImGui.SetTooltip(VisibilityPlugin.Instance.PluginLocalization.OptionContextMenuTip);
 		}
+		ImGui.NextColumn();
+
+		ImGuiElements.Checkbox(configuration.EnableInInstance, nameof(configuration.EnableInInstance));
+		ImGui.SameLine();
+		ImGui.Text("Enable Visibility in instance");
 
 		ImGui.NextColumn();
 		ImGui.Separator();

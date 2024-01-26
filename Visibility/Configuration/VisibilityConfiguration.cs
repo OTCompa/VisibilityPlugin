@@ -21,17 +21,17 @@ public class VisibilityConfiguration: IPluginConfiguration
 	public bool HideStar;
 	public bool AdvancedEnabled;
 	public bool EnableContextMenu;
+	public bool EnableInInstance;
+	public List<VoidItem> VoidList { get; } = new List<VoidItem>();
 
-	public List<VoidItem> VoidList { get; } = [];
-
-	public List<VoidItem> Whitelist { get; } = [];
+	public List<VoidItem> Whitelist { get; } = new List<VoidItem>();
 
 	[NonSerialized] public readonly Dictionary<string, Action<bool, bool, bool>> SettingDictionary =
 		new(StringComparer.InvariantCultureIgnoreCase);
 
-	[NonSerialized] public readonly HashSet<ushort> TerritoryTypeWhitelist = [];
+	[NonSerialized] public readonly HashSet<ushort> TerritoryTypeWhitelist = new();
 
-	[NonSerialized] private readonly HashSet<ushort> allowedTerritory = [];
+	[NonSerialized] private readonly HashSet<ushort> allowedTerritory = new();
 
 	[NonSerialized]
 	public readonly Dictionary<ushort, string> TerritoryPlaceNameDictionary = new() { { 0, "Default" } };
@@ -63,6 +63,8 @@ public class VisibilityConfiguration: IPluginConfiguration
 
 			VisibilityPlugin.Instance.ContextMenu.Toggle(val, toggle);
 		};
+
+		this.SettingDictionary[nameof(this.EnableInInstance)] = (val, toggle, _) => this.EnableInInstance.ToggleBool(val, toggle);
 
 		this.SettingDictionary[nameof(TerritoryConfig.HidePet)] = (val, toggle, edit) =>
 		{

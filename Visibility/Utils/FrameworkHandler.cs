@@ -108,8 +108,9 @@ public class FrameworkHandler: IDisposable
 			return;
 		}
 
-		bool isBound = (Service.Condition[ConditionFlag.BoundByDuty] &&
-		                localPlayerGameObject->EventId.Type != EventHandlerType.TreasureHuntDirector)
+		bool isBound = !VisibilityPlugin.Instance.Configuration.EnableInInstance
+					   && (Service.Condition[ConditionFlag.BoundByDuty]
+		               && localPlayerGameObject->EventId.Type != EventHandlerType.TreasureHuntDirector)
 		               || Service.Condition[ConditionFlag.BetweenAreas]
 		               || Service.Condition[ConditionFlag.WatchingCutscene]
 		               || Service.Condition[ConditionFlag.DutyRecorderPlayback];
